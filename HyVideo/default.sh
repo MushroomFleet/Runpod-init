@@ -44,7 +44,8 @@ NODES=(
 	"https://github.com/KoreTeknology/ComfyUI-Universal-Styler"
     "https://github.com/city96/ComfyUI_ExtraModels"
     "https://github.com/chflame163/ComfyUI_LayerStyle"
-    "https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
+    "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
+    "https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
 )
 
 WORKFLOWS=(
@@ -78,6 +79,11 @@ TEXTENCODERS_MODELS=(
 
 LORA_MODELS=(
 	#"https://huggingface.co/mushroomfleet/Flux-Lora-Collection/resolve/main/AssassinKahb-8-16-e9-10.safetensors"
+    "https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/xjx-tokyoaracer.safetensors"
+    "https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/xjx-TokyoRacerV2-comfy.safetensors"
+    "https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/kck-cybersociety-video-V0.safetensors"
+    "https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/kbk_backrooms_comfyui.safetensors"
+    "https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/fxf-tokyoMeet-comfy.safetensors"
 )
 
 VAE_MODELS=(
