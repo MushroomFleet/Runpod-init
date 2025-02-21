@@ -73,7 +73,7 @@ CLIP_MODELS=(
 )
 
 TEXTENCODERS_MODELS=(
-    "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/blob/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors"
+    "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors"
     "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors"
 )
 
@@ -89,7 +89,7 @@ LORA_MODELS=(
 VAE_MODELS=(
     #"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/ae.sft"
     #"https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
-    "https://huggingface.co/Kijai/HunyuanVideo_comfy/blob/main/hunyuan_video_vae_bf16.safetensors"
+    "https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_vae_bf16.safetensors"
 )
 
 ESRGAN_MODELS=(
@@ -298,14 +298,21 @@ function provisioning_has_valid_civitai_token() {
 function provisioning_download() {
     if [[ -n $HF_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
         auth_token="$HF_TOKEN"
-    elif 
-        [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
+    elif [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
     fi
-    if [[ -n $auth_token ]];then
-        wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    if [[ "$1" == *.gguf ]]; then
+        if [[ -n $auth_token ]]; then
+            wget --header="Authorization: Bearer $auth_token" --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        else
+            wget --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        fi
     else
-        wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        if [[ -n $auth_token ]]; then
+            wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        else
+            wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        fi
     fi
 }
 
