@@ -8,6 +8,7 @@ OneTrainer WIP (unstable): [https://runpod.io/console/deploy?template=c150zcigz7
 MOCHI1 Video WIP (unstable): [https://runpod.io/console/deploy?template=egyeo55x8w&ref=0czffee4]<br />
 <br /><br />
 ComfyUI Hunyuan Video (Stable): https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
+ComfyUI LTXV (Stable): https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
 
 Add your Huggingface key to runpod secrets: "hf" = your READ API key.
 Update ComfyUI after install and restart with the Manager.
