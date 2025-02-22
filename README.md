@@ -2,11 +2,14 @@
 <br />
 Making use of Runpod easier and less painful for some, maybe.<br />
 <br />
-ComfyUI WIP (stable): [https://runpod.io/console/deploy?template=25hd4rhmj7&ref=0czffee4]<br />
-KohyaSS WIP (stable): [https://runpod.io/console/deploy?template=gdu4jus5ud&ref=0czffee4]<br />
-OneTrainer WIP (stable): [https://runpod.io/console/deploy?template=c150zcigz7&ref=0czffee4]<br />
-MOCHI1 Video WIP (stable): [https://runpod.io/console/deploy?template=egyeo55x8w&ref=0czffee4]<br />
+ComfyUI WIP (unstable): [https://runpod.io/console/deploy?template=25hd4rhmj7&ref=0czffee4]<br />
+KohyaSS WIP (unstable): [https://runpod.io/console/deploy?template=gdu4jus5ud&ref=0czffee4]<br />
+OneTrainer WIP (unstable): [https://runpod.io/console/deploy?template=c150zcigz7&ref=0czffee4]<br />
+MOCHI1 Video WIP (unstable): [https://runpod.io/console/deploy?template=egyeo55x8w&ref=0czffee4]<br />
 <br /><br />
+ComfyUI Hunyuan Video (Stable): https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
+
+add your key to runpod secrets: "hf" = your READ API key.
 
 ## Acknowledgements
 
