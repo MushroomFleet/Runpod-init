@@ -6,7 +6,7 @@
 
 # Packages are installed after nodes so we can fix them...
 
-DEFAULT_WORKFLOW="https://raw.githubusercontent.com/ai-dock/comfyui/main/config/workflows/flux-comfyui-example.json"
+DEFAULT_WORKFLOW="https://raw.githubusercontent.com/MushroomFleet/DJZ-Workflows/refs/heads/main/XODA-LTXV-Video-Pack/LTXV-FaceSwap/Xoda-LTXV-t2v-Native-GGUF-faceswap-1stage-lines-v200.json"
 
 APT_PACKAGES=(
     #"package-1"
@@ -27,26 +27,30 @@ NODES=(
 	"https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
 	"https://github.com/rgthree/rgthree-comfy"
 	"https://github.com/crystian/ComfyUI-Crystools"
+    "https://github.com/city96/ComfyUI-GGUF"
 	"https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
 	"https://github.com/giriss/comfy-image-saver"
 	"https://github.com/Fannovel16/comfyui_controlnet_aux"
 	"https://github.com/WASasquatch/was-node-suite-comfyui"
 	"https://github.com/pythongosssss/ComfyUI-Custom-Scripts"
 	"https://github.com/melMass/comfy_mtb"
+    "https://github.com/crystian/ComfyUI-Crystools"
+    "https://github.com/rgthree/rgthree-comfy"
 	"https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
 	"https://github.com/sipherxyz/comfyui-art-venture"
 	"https://github.com/twri/sdxl_prompt_styler"
 	"https://github.com/hylarucoder/comfyui-copilot"
 	"https://github.com/kijai/ComfyUI-KJNodes"
 	"https://github.com/KoreTeknology/ComfyUI-Universal-Styler"
-    "https://github.com/kijai/ComfyUI-MochiWrapper"
     "https://github.com/city96/ComfyUI_ExtraModels"
     "https://github.com/chflame163/ComfyUI_LayerStyle"
-    "https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
+    "https://github.com/logtd/ComfyUI-LTXTricks"
+    #"https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
+    #"https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
 )
 
 WORKFLOWS=(
-	"https://github.com/MushroomFleet/DJZ-Workflows"
+	#"https://github.com/MushroomFleet/DJZ-Workflows"
 )
 
 CHECKPOINT_MODELS=(
@@ -60,13 +64,10 @@ UNET_MODELS=(
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/flux1-dev.sft"
 )
 
-MOCHI_MODELS=(
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_GGUF_Q4_0_v2.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_GGUF_Q8_0.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_bf16.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_fp8_e4m3fn.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_fp8_e4m3fn.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_dit_fp8_e4m3fn.safetensors"
+DIFFUSION_MODELS=(
+	#"https://huggingface.co/city96/HunyuanVideo-gguf/resolve/main/hunyuan-video-t2v-720p-Q8_0.gguf"
+    "https://huggingface.co/city96/LTX-Video-gguf/resolve/main/ltx-video-2b-v0.9-Q8_0.gguf"
+
 )
 
 CLIP_MODELS=(
@@ -74,19 +75,31 @@ CLIP_MODELS=(
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/t5xxl_fp16.safetensors"
 )
 
+TEXTENCODERS_MODELS=(
+    #"https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors"
+    #"https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors"
+    "https://huggingface.co/Comfy-Org/mochi_preview_repackaged/blob/main/split_files/text_encoders/t5xxl_fp16.safetensors"
+)
+
 LORA_MODELS=(
 	#"https://huggingface.co/mushroomfleet/Flux-Lora-Collection/resolve/main/AssassinKahb-8-16-e9-10.safetensors"
+    #"https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/xjx-tokyoaracer.safetensors"
+    #"https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/xjx-TokyoRacerV2-comfy.safetensors"
+    #"https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/kck-cybersociety-video-V0.safetensors"
+    #"https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/kbk_backrooms_comfyui.safetensors"
+    #"https://huggingface.co/mushroomfleet/HyVid-Lora-Collection/resolve/main/fxf-tokyoMeet-comfy.safetensors"
 )
 
 VAE_MODELS=(
     #"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/ae.sft"
     #"https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
-    "https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_bf16.safetensors"
+    #"https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_vae_bf16.safetensors"
+    "https://huggingface.co/Lightricks/LTX-Video/resolve/main/vae/diffusion_pytorch_model.safetensors"
 )
 
 ESRGAN_MODELS=(
     #"https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
-    "https://huggingface.co/FacehugmanIII/4x_foolhardy_Remacri/resolve/main/4x_foolhardy_Remacri.pth"
+    #"https://huggingface.co/FacehugmanIII/4x_foolhardy_Remacri/resolve/main/4x_foolhardy_Remacri.pth"
     #"https://huggingface.co/Akumetsu971/SD_Anime_Futuristic_Armor/resolve/main/4x_NMKD-Siax_200k.pth"
 )
 
@@ -136,13 +149,16 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/diffusion_models/mochi" \
-        "${MOCHI_MODELS[@]}"
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/text_encoders" \
+        "${TEXTENCODERS_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
@@ -287,14 +303,21 @@ function provisioning_has_valid_civitai_token() {
 function provisioning_download() {
     if [[ -n $HF_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
         auth_token="$HF_TOKEN"
-    elif 
-        [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
+    elif [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
     fi
-    if [[ -n $auth_token ]];then
-        wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    if [[ "$1" == *.gguf ]]; then
+        if [[ -n $auth_token ]]; then
+            wget --header="Authorization: Bearer $auth_token" --content-disposition --show-progress -nc -e dotbytes="${3:-4M}" -P "$2" "$1"
+        else
+            wget --content-disposition --show-progress -nc -e dotbytes="${3:-4M}" -P "$2" "$1"
+        fi
     else
-        wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        if [[ -n $auth_token ]]; then
+            wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        else
+            wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        fi
     fi
 }
 
