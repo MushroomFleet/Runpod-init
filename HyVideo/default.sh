@@ -303,9 +303,9 @@ function provisioning_download() {
     fi
     if [[ "$1" == *.gguf ]]; then
         if [[ -n $auth_token ]]; then
-            wget --header="Authorization: Bearer $auth_token" --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+            wget --header="Authorization: Bearer $auth_token" --content-disposition --show-progress -nc -e dotbytes="${3:-4M}" -P "$2" "$1"
         else
-            wget --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+            wget --content-disposition --show-progress -nc -e dotbytes="${3:-4M}" -P "$2" "$1"
         fi
     else
         if [[ -n $auth_token ]]; then
