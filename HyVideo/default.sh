@@ -153,7 +153,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/text_encoders" \
         "${TEXTENCODERS_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
