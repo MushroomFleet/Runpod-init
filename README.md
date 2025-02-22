@@ -9,7 +9,8 @@ MOCHI1 Video WIP (unstable): [https://runpod.io/console/deploy?template=egyeo55x
 <br /><br />
 ComfyUI Hunyuan Video (Stable): https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
 
-add your key to runpod secrets: "hf" = your READ API key.
+Add your Huggingface key to runpod secrets: "hf" = your READ API key.
+Update ComfyUI after install and restart with the Manager.
 
 ## Acknowledgements
 
