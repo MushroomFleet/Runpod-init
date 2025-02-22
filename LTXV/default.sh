@@ -73,7 +73,7 @@ DIFFUSION_MODELS=(
 CLIP_MODELS=(
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/clip_l.safetensors"
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/t5xxl_fp16.safetensors"
-    "https://huggingface.co/Comfy-Org/mochi_preview_repackaged/blob/main/split_files/text_encoders/t5xxl_fp16.safetensors"
+    "https://huggingface.co/Comfy-Org/mochi_preview_repackaged/resolve/main/split_files/text_encoders/t5xxl_fp16.safetensors"
 )
 
 TEXTENCODERS_MODELS=(
