@@ -73,7 +73,7 @@ DIFFUSION_MODELS=(
 CLIP_MODELS=(
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/clip_l.safetensors"
 	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/t5xxl_fp16.safetensors"
-    "https://huggingface.co/Comfy-Org/mochi_preview_repackaged/resolve/main/split_files/text_encoders/t5xxl_fp16.safetensors"
+    "https://huggingface.co/Comfy-Org/mochi_preview_repackaged/blob/main/split_files/text_encoders/t5xxl_fp16.safetensors"
 )
 
 TEXTENCODERS_MODELS=(
@@ -94,7 +94,7 @@ VAE_MODELS=(
     #"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/ae.sft"
     #"https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
     #"https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_vae_bf16.safetensors"
-    "https://huggingface.co/Lightricks/LTX-Video/resolve/main/vae/diffusion_pytorch_model.safetensors"
+    "https://huggingface.co/calcuis/ltxv-gguf/resolve/main/ltxv-0.9.1-vae.safetensors"
 )
 
 ESRGAN_MODELS=(
