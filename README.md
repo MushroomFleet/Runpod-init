@@ -10,6 +10,9 @@ MOCHI1 Video WIP: [https://runpod.io/console/deploy?template=egyeo55x8w&ref=0czf
 ComfyUI Hunyuan Video: https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
 ComfyUI LTXV: https://runpod.io/console/deploy?template=6y9bil957j&ref=0czffee4<br />
 ComfyUI SkyReelsV1 Img2Vid: https://runpod.io/console/deploy?template=jvfh5s4kq9&ref=0czffee4<br />
+<br /><br />
+DJZ Yue (music): https://runpod.io/console/deploy?template=c9pmi78788&ref=0czffee4<br />
+DJZ RVC (voice): https://runpod.io/console/deploy?template=emkdc3eux3&ref=0czffee4<br />
 
 Add your Huggingface key to runpod secrets: "hf" = your READ API key.
 Update ComfyUI after install and restart with the Manager.
