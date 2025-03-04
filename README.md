@@ -5,6 +5,7 @@ Making use of Runpod easier and less painful for some, maybe.<br />
 ComfyUI FLUX-Dev/Schnell: https://runpod.io/console/deploy?template=25hd4rhmj7&ref=0czffee4<br />
 ComfyUI Shuttle-Jaguar: https://runpod.io/console/deploy?template=1zydbufzbw&ref=0czffee4<br/>
 <br /><br />
+ComfyUI WAN GGUF: https://runpod.io/console/deploy?template=v7rf7zf8f7&ref=0czffee4<br />
 ComfyUI WAN Video: https://runpod.io/console/deploy?template=jfenet6l39&ref=0czffee4<br />
 ComfyUI SkyReelsV1 Img2Vid: https://runpod.io/console/deploy?template=jvfh5s4kq9&ref=0czffee4<br />
 ComfyUI Hunyuan Video: https://runpod.io/console/deploy?template=dhfy2gw01z&ref=0czffee4<br />
