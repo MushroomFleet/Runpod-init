@@ -44,7 +44,7 @@ NODES=(
 	"https://github.com/KoreTeknology/ComfyUI-Universal-Styler"
     "https://github.com/city96/ComfyUI_ExtraModels"
     "https://github.com/chflame163/ComfyUI_LayerStyle"
-    #"https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
+    "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
     "https://github.com/logtd/ComfyUI-HunyuanLoom"
     "https://github.com/zackabrams/ComfyUI-MagicWan"
     "https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
