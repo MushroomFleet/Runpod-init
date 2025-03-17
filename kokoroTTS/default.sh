@@ -46,6 +46,7 @@ NODES=(
     	"https://github.com/chflame163/ComfyUI_LayerStyle"
     	#"https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
     	#"https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
+        "https://github.com/MushroomFleet/DJZ-KokoroTTS"
 	"https://github.com/Acly/comfyui-inpaint-nodes"
 	"https://github.com/kijai/ComfyUI-segment-anything-2"
  	"https://github.com/kijai/ComfyUI-Florence2"
@@ -69,8 +70,8 @@ UNET_MODELS=(
 DIFFUSION_MODELS=(
 	#"https://huggingface.co/city96/HunyuanVideo-gguf/resolve/main/hunyuan-video-t2v-720p-Q8_0.gguf"
     #"https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels-hunyuan-I2V-Q8_0.gguf"
-    "https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q4_K_S.gguf"
-    #"https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q8_0.gguf"
+    #"https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q4_K_S.gguf"
+    "https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q8_0.gguf"
     "https://huggingface.co/YarvixPA/FLUX.1-Fill-dev-gguf/resolve/main/flux1-fill-dev-Q8_0.gguf"
 )
 
