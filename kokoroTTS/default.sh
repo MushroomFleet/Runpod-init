@@ -56,6 +56,10 @@ WORKFLOWS=(
 	"https://github.com/MushroomFleet/DJZ-Workflows"
 )
 
+KOKORO=(
+	"https://github.com/taylorchu/kokoro-onnx/releases/download/v0.2.0/kokoro.onnx"
+)
+
 CHECKPOINT_MODELS=(
 	#"https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt"
 	#"https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.ckpt"
@@ -174,6 +178,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
     provisioning_get_workflows
+    provisioning_get_kokoro
     provisioning_print_end
 }
 
@@ -232,6 +237,27 @@ function provisioning_get_workflows() {
         else
             printf "Cloning workflows: %s...\n" "${repo}"
             git clone "$repo" "$path"
+        fi
+    done
+}
+
+function provisioning_get_kokoro() {
+    for url in "${KOKORO[@]}"; do
+        filename=$(basename "$url")
+        directory="/opt/ComfyUI/models/kokoro"
+        path="$directory/$filename"
+        
+        # Create directory if it doesn't exist
+        mkdir -p "$directory"
+        
+        if [[ -f "$path" ]]; then
+            if [[ ${AUTO_UPDATE,,} != "false" ]]; then
+                printf "Updating kokoro model: %s...\n" "${url}"
+                wget -q "$url" -O "$path"
+            fi
+        else
+            printf "Downloading kokoro model: %s...\n" "${url}"
+            wget -q "$url" -O "$path"
         fi
     done
 }
