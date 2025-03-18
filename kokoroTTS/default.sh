@@ -58,6 +58,7 @@ WORKFLOWS=(
 
 KOKORO=(
 	"https://github.com/taylorchu/kokoro-onnx/releases/download/v0.2.0/kokoro.onnx"
+ 	"https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files/voices.json"
 )
 
 CHECKPOINT_MODELS=(
