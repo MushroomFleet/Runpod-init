@@ -49,6 +49,8 @@ NODES=(
 	"https://github.com/Acly/comfyui-inpaint-nodes"
 	"https://github.com/kijai/ComfyUI-segment-anything-2"
  	"https://github.com/kijai/ComfyUI-Florence2"
+    "https://github.com/Slickytail/ComfyUI-InstantX-IPAdapter-SD3"
+    "https://github.com/Lerc/canvas_tab"
 )
 
 WORKFLOWS=(
@@ -69,19 +71,26 @@ UNET_MODELS=(
 DIFFUSION_MODELS=(
 	#"https://huggingface.co/city96/HunyuanVideo-gguf/resolve/main/hunyuan-video-t2v-720p-Q8_0.gguf"
     #"https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels-hunyuan-I2V-Q8_0.gguf"
-    "https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q4_K_S.gguf"
+    #"https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q4_K_S.gguf"
     #"https://huggingface.co/shuttleai/shuttle-jaguar/resolve/main/gguf/shuttle-jaguar-Q8_0.gguf"
-    "https://huggingface.co/YarvixPA/FLUX.1-Fill-dev-gguf/resolve/main/flux1-fill-dev-Q8_0.gguf"
+    #"https://huggingface.co/YarvixPA/FLUX.1-Fill-dev-gguf/resolve/main/flux1-fill-dev-Q8_0.gguf"
+    "https://huggingface.co/city96/stable-diffusion-3.5-large-gguf/resolve/main/sd3.5_large-Q8_0.gguf"
 )
 
 CLIP_MODELS=(
-	"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/clip_l.safetensors"
-	"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/t5xxl_fp16.safetensors"
+	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/clip_l.safetensors"
+	#"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/t5xxl_fp16.safetensors"
+)
+
+CLIPVISION_MODELS=(
+    "https://huggingface.co/Comfy-Org/sigclip_vision_384/resolve/main/sigclip_vision_patch14_384.safetensors"
 )
 
 TEXTENCODERS_MODELS=(
     #"https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors"
-    #"https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors"
+    "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors"
+    "https://huggingface.co/Comfy-Org/stable-diffusion-3.5-fp8/blob/main/text_encoders/t5xxl_fp8_e4m3fn_scaled.safetensors"
+    "https://huggingface.co/Comfy-Org/stable-diffusion-3.5-fp8/resolve/main/text_encoders/clip_g.safetensors"
 )
 
 LORA_MODELS=(
@@ -94,9 +103,10 @@ LORA_MODELS=(
 )
 
 VAE_MODELS=(
-    "https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/ae.sft"
+    #"https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/ae.sft"
     #"https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
     #"https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_vae_bf16.safetensors"
+    "https://huggingface.co/stabilityai/stable-diffusion-3.5-large/resolve/main/vae/diffusion_pytorch_model.safetensors"
 )
 
 ESRGAN_MODELS=(
@@ -129,7 +139,14 @@ CONTROLNET_MODELS=(
     #"https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/t2iadapter_seg-fp16.safetensors"
     #"https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/t2iadapter_sketch-fp16.safetensors"
     #"https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/t2iadapter_style-fp16.safetensors"
-    "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
+    #"https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
+    "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_blur.safetensors"
+    "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_canny.safetensors"
+    "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_depth.safetensors"
+)
+
+IPADAPTER_MODELS=(
+    "https://huggingface.co/InstantX/SD3.5-Large-IP-Adapter/resolve/main/ip-adapter.bin"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -158,6 +175,9 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/clip_vision" \
+        "${CLIPVISION_MODELS[@]}"
+    provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/text_encoders" \
         "${TEXTENCODERS_MODELS[@]}"
     provisioning_get_models \
@@ -166,6 +186,9 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/ipadapter" \
+        "${IPADAPTER_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/vae" \
         "${VAE_MODELS[@]}"
