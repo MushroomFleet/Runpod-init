@@ -18,6 +18,11 @@ PIP_PACKAGES=(
     #"package-2"
 )
 
+# Nodes that require running their install.py script
+INSTALLPY=(
+    "https://github.com/aigc-apps/VideoX-Fun"
+)
+
 NODES=(
 	"https://github.com/ltdrdata/ComfyUI-Manager"
 	"https://github.com/cubiq/ComfyUI_essentials"
@@ -46,7 +51,8 @@ NODES=(
     "https://github.com/chflame163/ComfyUI_LayerStyle"
     #"https://github.com/kijai/ComfyUI-HunyuanVideoWrapper"
     "https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
-    "https://github.com/kijai/ComfyUI-WanVideoWrapper"
+    #"https://github.com/kijai/ComfyUI-WanVideoWrapper"
+    "https://github.com/aigc-apps/VideoX-Fun"
 )
 
 WORKFLOWS=(
@@ -144,6 +150,11 @@ CONTROLNET_MODELS=(
     #"https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/t2iadapter_style-fp16.safetensors"
 )
 
+# Hugging Face repositories to download completely
+HF_REPOS=(
+    "alibaba-pai/Wan2.1-Fun-1.3B-Control"
+)
+
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
 function provisioning_start() {
@@ -187,6 +198,8 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    # Download complete Hugging Face repositories
+    provisioning_get_hf_repos
     provisioning_get_workflows
     provisioning_print_end
 }
@@ -216,18 +229,35 @@ function provisioning_get_nodes() {
         dir="${repo##*/}"
         path="/opt/ComfyUI/custom_nodes/${dir}"
         requirements="${path}/requirements.txt"
+        install_py="${path}/install.py"
+        
+        # Check if this repo needs install.py
+        needs_install_py=false
+        for install_repo in "${INSTALLPY[@]}"; do
+            if [[ "$repo" == "$install_repo" ]]; then
+                needs_install_py=true
+                break
+            fi
+        done
+        
         if [[ -d $path ]]; then
             if [[ ${AUTO_UPDATE,,} != "false" ]]; then
                 printf "Updating node: %s...\n" "${repo}"
                 ( cd "$path" && git pull )
-                if [[ -e $requirements ]]; then
-                   pip_install -r "$requirements"
+                if [[ "$needs_install_py" == true && -e $install_py ]]; then
+                    printf "Running install.py for %s...\n" "${repo}"
+                    ( cd "$path" && python install.py )
+                elif [[ -e $requirements ]]; then
+                    pip_install -r "$requirements"
                 fi
             fi
         else
             printf "Downloading node: %s...\n" "${repo}"
             git clone "${repo}" "${path}" --recursive
-            if [[ -e $requirements ]]; then
+            if [[ "$needs_install_py" == true && -e $install_py ]]; then
+                printf "Running install.py for %s...\n" "${repo}"
+                ( cd "$path" && python install.py )
+            elif [[ -e $requirements ]]; then
                 pip_install -r "${requirements}"
             fi
         fi
@@ -271,6 +301,36 @@ function provisioning_get_models() {
         printf "Downloading: %s\n" "${url}"
         provisioning_download "${url}" "${dir}"
         printf "\n"
+    done
+}
+
+function provisioning_get_hf_repos() {
+    base_dir="${WORKSPACE}/ComfyUI/models/Fun_Models"
+    mkdir -p "$base_dir"
+    
+    for repo in "${HF_REPOS[@]}"; do
+        repo_name="${repo##*/}"
+        target_dir="$base_dir/$repo_name"
+        
+        if [[ -d "$target_dir" ]]; then
+            if [[ ${AUTO_UPDATE,,} != "false" ]]; then
+                printf "Updating Hugging Face repo: %s...\n" "${repo}"
+                # Update mechanism using huggingface_hub
+                if provisioning_has_valid_hf_token; then
+                    python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                else
+                    python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                fi
+            fi
+        else
+            printf "Downloading Hugging Face repo: %s to %s...\n" "${repo}" "${target_dir}"
+            # Download mechanism using huggingface_hub
+            if provisioning_has_valid_hf_token; then
+                python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+            else
+                python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+            fi
+        fi
     done
 }
 
