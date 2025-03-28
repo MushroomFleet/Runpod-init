@@ -14,8 +14,8 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
-    #"package-1"
-    #"package-2"
+    # We need the huggingface_hub package for our custom download function
+    "huggingface_hub"
 )
 
 # Nodes that require running their install.py script
@@ -150,10 +150,17 @@ CONTROLNET_MODELS=(
     #"https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/t2iadapter_style-fp16.safetensors"
 )
 
-# Hugging Face repositories to download completely
-HF_REPOS=(
-    "alibaba-pai/Wan2.1-Fun-1.3B-Control"
+# Special handling for HF repos
+# Instead of using the external provisioning script's HF_REPOS handling,
+# we'll download the necessary files ourselves using wget
+HF_REPO_FILES=(
+    # For 'alibaba-pai/Wan2.1-Fun-1.3B-Control'
+    "https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/model.safetensors"
+    "https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/config.json"
 )
+
+# Empty the HF_REPOS array since we'll handle this ourselves
+HF_REPOS=()
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
@@ -198,7 +205,9 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
-    # Download complete Hugging Face repositories
+    # Download our custom HF repo files
+    provisioning_get_hf_repo_files
+    # Keep the original HF_REPOS handling in case we need it later
     provisioning_get_hf_repos
     provisioning_get_workflows
     provisioning_print_end
@@ -209,6 +218,14 @@ function pip_install() {
             "$COMFYUI_VENV_PIP" install --no-cache-dir "$@"
         else
             micromamba run -n comfyui pip install --no-cache-dir "$@"
+        fi
+}
+
+function python_run() {
+    if [[ -z $MAMBA_BASE ]]; then
+            "$COMFYUI_VENV_PYTHON" "$@"
+        else
+            micromamba run -n comfyui python "$@"
         fi
 }
 
@@ -246,7 +263,7 @@ function provisioning_get_nodes() {
                 ( cd "$path" && git pull )
                 if [[ "$needs_install_py" == true && -e $install_py ]]; then
                     printf "Running install.py for %s...\n" "${repo}"
-                    ( cd "$path" && python install.py )
+                    ( cd "$path" && python_run install.py )
                 elif [[ -e $requirements ]]; then
                     pip_install -r "$requirements"
                 fi
@@ -256,7 +273,7 @@ function provisioning_get_nodes() {
             git clone "${repo}" "${path}" --recursive
             if [[ "$needs_install_py" == true && -e $install_py ]]; then
                 printf "Running install.py for %s...\n" "${repo}"
-                ( cd "$path" && python install.py )
+                ( cd "$path" && python_run install.py )
             elif [[ -e $requirements ]]; then
                 pip_install -r "${requirements}"
             fi
@@ -304,7 +321,30 @@ function provisioning_get_models() {
     done
 }
 
+# New function to download HF repo files directly with wget
+function provisioning_get_hf_repo_files() {
+    base_dir="${WORKSPACE}/ComfyUI/models/Fun_Models/Wan2.1-Fun-1.3B-Control"
+    mkdir -p "$base_dir"
+    
+    printf "Downloading Hugging Face repo files for alibaba-pai/Wan2.1-Fun-1.3B-Control...\n"
+    for url in "${HF_REPO_FILES[@]}"; do
+        filename=$(basename "$url")
+        printf "Downloading file: %s\n" "${filename}"
+        if [[ -n $HF_TOKEN ]]; then
+            wget --header="Authorization: Bearer $HF_TOKEN" -qnc --content-disposition --show-progress -e dotbytes="4M" -P "$base_dir" "$url"
+        else
+            wget -qnc --content-disposition --show-progress -e dotbytes="4M" -P "$base_dir" "$url"
+        fi
+    done
+    printf "Finished downloading Hugging Face repo files.\n"
+}
+
 function provisioning_get_hf_repos() {
+    # This function is kept for compatibility but we're using our custom solution above
+    if [[ -z ${HF_REPOS[@]} ]]; then
+        return 0
+    fi
+    
     base_dir="${WORKSPACE}/ComfyUI/models/Fun_Models"
     mkdir -p "$base_dir"
     
@@ -317,18 +357,34 @@ function provisioning_get_hf_repos() {
                 printf "Updating Hugging Face repo: %s...\n" "${repo}"
                 # Update mechanism using huggingface_hub
                 if provisioning_has_valid_hf_token; then
-                    python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                    if [[ -z $MAMBA_BASE ]]; then
+                        "$COMFYUI_VENV_PYTHON" -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                    else
+                        micromamba run -n comfyui python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                    fi
                 else
-                    python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                    if [[ -z $MAMBA_BASE ]]; then
+                        "$COMFYUI_VENV_PYTHON" -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                    else
+                        micromamba run -n comfyui python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                    fi
                 fi
             fi
         else
             printf "Downloading Hugging Face repo: %s to %s...\n" "${repo}" "${target_dir}"
             # Download mechanism using huggingface_hub
             if provisioning_has_valid_hf_token; then
-                python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                if [[ -z $MAMBA_BASE ]]; then
+                    "$COMFYUI_VENV_PYTHON" -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                else
+                    micromamba run -n comfyui python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False, token='$HF_TOKEN')"
+                fi
             else
-                python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                if [[ -z $MAMBA_BASE ]]; then
+                    "$COMFYUI_VENV_PYTHON" -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                else
+                    micromamba run -n comfyui python -c "from huggingface_hub import snapshot_download; snapshot_download('$repo', local_dir='$target_dir', local_dir_use_symlinks=False)"
+                fi
             fi
         fi
     done
