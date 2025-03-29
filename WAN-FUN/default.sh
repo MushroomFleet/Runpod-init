@@ -159,8 +159,10 @@ HF_REPO_FILES=(
     "https://huggingface.co/alibaba-pai/Wan2.1-Fun-1.3B-Control/resolve/main/config.json"
 )
 
-# Empty the HF_REPOS array since we'll handle this ourselves
-HF_REPOS=()
+# Define repositories to download in full
+HF_REPOS=(
+    "alibaba-pai/Wan2.1-Fun-1.3B-Control"
+)
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
@@ -321,22 +323,11 @@ function provisioning_get_models() {
     done
 }
 
-# New function to download HF repo files directly with wget
+# Skip individual file downloads as we're using the HF_REPOS mechanism now
 function provisioning_get_hf_repo_files() {
-    base_dir="${WORKSPACE}/ComfyUI/models/Fun_Models/Wan2.1-Fun-1.3B-Control"
-    mkdir -p "$base_dir"
-    
-    printf "Downloading Hugging Face repo files for alibaba-pai/Wan2.1-Fun-1.3B-Control...\n"
-    for url in "${HF_REPO_FILES[@]}"; do
-        filename=$(basename "$url")
-        printf "Downloading file: %s\n" "${filename}"
-        if [[ -n $HF_TOKEN ]]; then
-            wget --header="Authorization: Bearer $HF_TOKEN" -qnc --content-disposition --show-progress -e dotbytes="4M" -P "$base_dir" "$url"
-        else
-            wget -qnc --content-disposition --show-progress -e dotbytes="4M" -P "$base_dir" "$url"
-        fi
-    done
-    printf "Finished downloading Hugging Face repo files.\n"
+    # Skip this function as we're now using the built-in HF repo download mechanism
+    printf "Skipping individual file downloads in favor of full repository download...\n"
+    return 0
 }
 
 function provisioning_get_hf_repos() {
