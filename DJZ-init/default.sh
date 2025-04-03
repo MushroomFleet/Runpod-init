@@ -22,7 +22,7 @@ NODES=(
 	"https://github.com/ltdrdata/ComfyUI-Manager"
 	"https://github.com/cubiq/ComfyUI_essentials"
 	"https://github.com/MushroomFleet/DJZ-Nodes"
-	"https://github.com/Gourieff/comfyui-reactor-node"
+	"https://github.com/Gourieff/ComfyUI-ReActor"
 	"https://github.com/ltdrdata/ComfyUI-Impact-Pack"
 	"https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
 	"https://github.com/rgthree/rgthree-comfy"
