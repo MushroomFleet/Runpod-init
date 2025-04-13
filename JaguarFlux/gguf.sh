@@ -40,6 +40,7 @@ NODES=(
 	"https://github.com/hylarucoder/comfyui-copilot"
 	"https://github.com/kijai/ComfyUI-KJNodes"
 	"https://github.com/KoreTeknology/ComfyUI-Universal-Styler"
+ 	"https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
 )
 
 WORKFLOWS=(
