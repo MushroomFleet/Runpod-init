@@ -49,6 +49,7 @@ NODES=(
     "https://github.com/zackabrams/ComfyUI-MagicWan"
     "https://github.com/ShmuelRonen/ComfyUI-EmptyHunyuanLatent"
     "https://github.com/kijai/ComfyUI-WanVideoWrapper"
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
 )
 
 WORKFLOWS=(
