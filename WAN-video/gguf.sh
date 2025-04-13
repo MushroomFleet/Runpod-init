@@ -6,7 +6,7 @@
 
 # Packages are installed after nodes so we can fix them...
 
-DEFAULT_WORKFLOW="https://raw.githubusercontent.com/MushroomFleet/DJZ-Workflows/refs/heads/main/Hoda-Hunyuan-Video/NativeComfy/Hoda-Hunyuan-t2v-GGUF-Native-Lora-lines-V20.json"
+DEFAULT_WORKFLOW="https://raw.githubusercontent.com/MushroomFleet/DJZ-Workflows/refs/heads/main/WAN-video/native/WANvideo-native-ImagePrompt-2-Video-lines-v30.json"
 
 APT_PACKAGES=(
     #"package-1"
