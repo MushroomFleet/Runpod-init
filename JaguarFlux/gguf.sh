@@ -193,7 +193,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
