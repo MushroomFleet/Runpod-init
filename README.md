@@ -75,3 +75,7 @@ If you use this codebase in your research or project, please cite:
 
 
 
+### Donate:
+
+[![Ko-Fi](https://cdn.ko-fi.com/cdn/kofi3.png?v=3)](https://ko-fi.com/driftjohnson)
+
